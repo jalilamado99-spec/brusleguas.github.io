@@ -144,11 +144,10 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
-        /* Colores al hover */
-        .btn-accion[data-tipo="dialogo"]:hover { background: #e8f4fd; border-color: #3498db; }
-        .btn-accion[data-tipo="audio"]:hover { background: #fde9e9; border-color: #e74c3c; }
-        .btn-accion[data-tipo="video"]:hover { background: #e8f8f0; border-color: #27ae60; }
-        .btn-accion[data-tipo="imagen"]:hover { background: #fef5e7; border-color: #f39c12; }
+        .btn-accion[onclick*="dialogo"]:hover { background: #e8f4fd; border-color: #3498db; }
+        .btn-accion[onclick*="audio"]:hover { background: #fde9e9; border-color: #e74c3c; }
+        .btn-accion[onclick*="video"]:hover { background: #e8f8f0; border-color: #27ae60; }
+        .btn-accion[onclick*="imagen"]:hover { background: #fef5e7; border-color: #f39c12; }
 
         /* FORMULARIO */
         .form-group {
@@ -294,22 +293,22 @@
             
             <!-- BOTONES DE UN SOLO CLIC -->
             <div class="botones-accion">
-                <button class="btn-accion" data-tipo="dialogo" onclick="insertarDialogo()">
+                <button class="btn-accion" onclick="insertarDialogo()">
                     <i class="fas fa-comment-dots"></i>
                     <span>DIÁLOGO</span>
                     <small style="font-size:12px;">1 clic</small>
                 </button>
-                <button class="btn-accion" data-tipo="audio" onclick="seleccionarArchivo('audio')">
+                <button class="btn-accion" onclick="seleccionarArchivo('audio')">
                     <i class="fas fa-microphone-alt"></i>
                     <span>AUDIO</span>
                     <small style="font-size:12px;">con reproductor</small>
                 </button>
-                <button class="btn-accion" data-tipo="video" onclick="seleccionarArchivo('video')">
+                <button class="btn-accion" onclick="seleccionarArchivo('video')">
                     <i class="fas fa-video"></i>
                     <span>VIDEO</span>
                     <small style="font-size:12px;">con reproductor</small>
                 </button>
-                <button class="btn-accion" data-tipo="imagen" onclick="seleccionarArchivo('imagen')">
+                <button class="btn-accion" onclick="seleccionarArchivo('imagen')">
                     <i class="fas fa-image"></i>
                     <span>IMAGEN</span>
                     <small style="font-size:12px;">vista previa</small>
@@ -446,8 +445,13 @@
                     </p>
                 </div>
             `;
-            const range = quill.getSelection();
-            quill.clipboard.dangerouslyPasteHTML(range ? range.index : 0, dialogHTML);
+            
+            // Obtener la posición actual del cursor
+            const selection = quill.getSelection();
+            const index = selection ? selection.index : quill.getLength();
+            
+            // Insertar el HTML
+            quill.clipboard.dangerouslyPasteHTML(index, dialogHTML);
             mostrarMensaje('✅ Diálogo insertado', 'success');
         }
 
@@ -533,9 +537,12 @@
                         `;
                     }
                     
+                    // Obtener la posición actual del cursor
+                    const selection = quill.getSelection();
+                    const index = selection ? selection.index : quill.getLength();
+                    
                     // Insertar en el editor
-                    const range = quill.getSelection();
-                    quill.clipboard.dangerouslyPasteHTML(range ? range.index : 0, html);
+                    quill.clipboard.dangerouslyPasteHTML(index, html);
                     
                     mostrarMensaje(`✅ ${archivo.name} subido e insertado`, 'success');
                     
@@ -547,6 +554,7 @@
                 reader.readAsDataURL(archivo);
                 
             } catch (error) {
+                console.error('Error:', error);
                 mostrarMensaje('❌ Error: ' + error.message, 'error');
             }
         }
@@ -618,6 +626,7 @@
                 cargarListaArticulos();
                 
             } catch (error) {
+                console.error('Error publicando:', error);
                 mostrarMensaje('❌ Error: ' + error.message, 'error');
             }
         }
@@ -718,6 +727,7 @@
                 listaDiv.innerHTML = html;
                 
             } catch (error) {
+                console.error('Error cargando lista:', error);
                 listaDiv.innerHTML = '<p style="text-align:center;color:red;">Error al cargar</p>';
             }
         }
