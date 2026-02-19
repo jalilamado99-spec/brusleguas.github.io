@@ -3,22 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - Blog Formal</title>
+    <title>Panel de Administración - Mi Blog</title>
     <!-- Editor Quill -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <!-- Font Awesome para iconos -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* ===== VARIABLES ===== */
-        :root {
-            --color-primario: #1e3c4f;
-            --color-secundario: #d98c3b;
-            --color-exito: #27ae60;
-            --color-error: #e74c3c;
-            --color-info: #3498db;
-            --color-fondo: #f0f2f5;
-        }
-
+        /* ===== ESTILOS SIMPLES Y CLAROS ===== */
         * {
             margin: 0;
             padding: 0;
@@ -26,772 +17,477 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--color-fondo);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
+            width: 100%;
             margin: 0 auto;
-            padding: 20px;
         }
 
-        /* ===== ANIMACIONES ===== */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(30px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
-        }
-
-        /* ===== LOGIN ===== */
+        /* ===== PANTALLA DE LOGIN ===== */
         #loginSection {
             max-width: 450px;
-            margin: 100px auto;
+            margin: 0 auto;
             background: white;
-            padding: 50px;
+            padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            animation: fadeIn 0.6s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
         }
 
         #loginSection h2 {
-            text-align: center;
-            color: var(--color-primario);
+            color: #2c3e50;
             margin-bottom: 30px;
             font-size: 28px;
         }
 
-        .input-group {
-            margin-bottom: 25px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--color-primario);
-        }
-
-        .input-group input {
+        #loginSection input {
             width: 100%;
             padding: 15px;
+            margin-bottom: 20px;
             border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 16px;
-            transition: all 0.3s;
+            border-radius: 10px;
+            font-size: 18px;
+            text-align: center;
         }
 
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--color-secundario);
-            box-shadow: 0 0 0 3px rgba(217, 140, 59, 0.2);
-        }
-
-        .login-btn {
+        #loginSection button {
             width: 100%;
-            padding: 16px;
-            background: var(--color-primario);
+            padding: 15px;
+            background: #e74c3c;
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 600;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
         }
 
-        .login-btn:hover {
-            background: var(--color-secundario);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .login-btn:active {
-            transform: translateY(0);
-        }
-
-        .login-btn.loading {
-            pointer-events: none;
-            opacity: 0.8;
-        }
-
-        .login-btn.loading::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 1.5s infinite;
+        #loginSection button:hover {
+            background: #c0392b;
         }
 
         #loginError {
-            color: var(--color-error);
+            color: #e74c3c;
             margin-top: 15px;
-            text-align: center;
             display: none;
-            padding: 10px;
-            background: #fdeaea;
-            border-radius: 8px;
-            animation: pulse 0.5s ease;
         }
 
         /* ===== PANEL PRINCIPAL ===== */
         #mainPanel {
             display: none;
-            animation: fadeIn 0.6s ease;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
 
-        /* Header */
+        /* Cabecera */
         .header {
-            background: white;
-            padding: 25px 35px;
-            border-radius: 20px;
-            margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            animation: slideIn 0.5s ease;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #e74c3c;
         }
 
         .header h2 {
-            color: var(--color-primario);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 24px;
-        }
-
-        .header h2 i {
-            color: var(--color-secundario);
+            color: #2c3e50;
             font-size: 28px;
         }
 
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .user-badge {
-            background: var(--color-primario);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-        }
-
-        .user-badge i {
-            color: var(--color-secundario);
-        }
-
-        .logout-btn {
-            padding: 10px 25px;
+        .header button {
+            padding: 12px 25px;
             background: #e74c3c;
             color: white;
             border: none;
-            border-radius: 40px;
+            border-radius: 10px;
+            font-size: 18px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .logout-btn:hover {
-            background: #c0392b;
-            transform: scale(1.05);
-        }
-
-        /* Grid */
-        .grid-2 {
+        /* ===== BOTONES GRANDES ===== */
+        .botones-accion {
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 30px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
             margin-bottom: 30px;
         }
 
-        /* Tarjetas */
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-            animation: slideIn 0.6s ease;
-        }
-
-        .card:hover {
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        }
-
-        .card h3 {
-            color: var(--color-primario);
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid var(--color-secundario);
+        .btn-accion {
+            padding: 30px 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
-            font-size: 20px;
+            gap: 15px;
+            transition: all 0.3s;
+            background: #f8f9fa;
+            color: #2c3e50;
+            border: 2px solid #e0e0e0;
         }
 
-        .card h3 i {
-            color: var(--color-secundario);
+        .btn-accion i {
+            font-size: 48px;
         }
 
-        /* Formularios */
+        .btn-accion:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .btn-accion.dialogo:hover {
+            background: #e8f4fd;
+            border-color: #3498db;
+        }
+
+        .btn-accion.audio:hover {
+            background: #fde9e9;
+            border-color: #e74c3c;
+        }
+
+        .btn-accion.video:hover {
+            background: #e8f8f0;
+            border-color: #27ae60;
+        }
+
+        .btn-accion.imagen:hover {
+            background: #fef5e7;
+            border-color: #f39c12;
+        }
+
+        /* ===== FORMULARIO ===== */
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--color-primario);
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 18px;
         }
 
-        .form-control {
+        .form-group input {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--color-secundario);
-            box-shadow: 0 0 0 3px rgba(217, 140, 59, 0.1);
+            border-radius: 10px;
+            font-size: 18px;
         }
 
         /* Editor */
         #editor {
-            height: 400px;
+            height: 300px;
             margin-bottom: 20px;
-            border-radius: 12px;
-            border: 2px solid #e0e0e0;
+            border-radius: 10px;
         }
 
-        .ql-editor {
-            font-size: 16px;
-            line-height: 1.8;
-        }
-
-        /* Botones */
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .btn {
-            padding: 15px 30px;
+        /* ===== BOTONES PRINCIPALES ===== */
+        .btn-publicar {
+            padding: 20px;
+            background: #e74c3c;
+            color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            flex: 1;
-            position: relative;
-            overflow: hidden;
+            width: 100%;
+            margin: 20px 0;
         }
 
-        .btn-primary {
-            background: var(--color-secundario);
+        .btn-publicar:hover {
+            background: #c0392b;
+        }
+
+        .btn-previsualizar {
+            padding: 15px;
+            background: #3498db;
             color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
         }
 
-        .btn-primary:hover {
-            background: #c47a2e;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(217, 140, 59, 0.3);
-        }
-
-        .btn-secondary {
-            background: var(--color-primario);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #152f3d;
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background: var(--color-exito);
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #219a52;
-        }
-
-        .btn.loading {
-            pointer-events: none;
-            opacity: 0.8;
-        }
-
-        .btn.loading i {
-            animation: spin 1s linear infinite;
-        }
-
-        /* Upload area */
+        /* ===== SUBIDA DE ARCHIVOS ===== */
         .upload-area {
-            background: #f8fafc;
-            border: 3px dashed var(--color-primario);
-            border-radius: 16px;
-            padding: 30px;
+            background: #f8f9fa;
+            border: 3px dashed #3498db;
+            border-radius: 15px;
+            padding: 20px;
             text-align: center;
             margin: 20px 0;
-            transition: all 0.3s;
         }
 
-        .upload-area:hover {
-            border-color: var(--color-secundario);
-            background: #f1f5f9;
-        }
-
-        .upload-area i {
-            font-size: 48px;
-            color: var(--color-secundario);
-            margin-bottom: 15px;
+        #fileInput {
+            display: none;
         }
 
         .upload-label {
-            background: white;
-            color: var(--color-primario);
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
             display: inline-block;
-            border: 2px solid var(--color-primario);
-            transition: all 0.3s;
-            margin: 15px 0;
-        }
-
-        .upload-label:hover {
-            background: var(--color-primario);
+            padding: 20px 40px;
+            background: #3498db;
             color: white;
-        }
-
-        /* Mensajes de feedback */
-        .message-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .message {
-            min-width: 300px;
-            padding: 18px 25px;
-            border-radius: 12px;
-            color: white;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            animation: slideIn 0.3s ease;
-            cursor: pointer;
-        }
-
-        .message i {
+            border-radius: 10px;
             font-size: 20px;
+            cursor: pointer;
+            margin: 10px 0;
         }
 
-        .message.success {
-            background: var(--color-exito);
+        .upload-label i {
+            margin-right: 10px;
         }
 
-        .message.error {
-            background: var(--color-error);
+        #fileName {
+            font-size: 16px;
+            color: #666;
+            margin: 10px 0;
         }
 
-        .message.info {
-            background: var(--color-info);
-        }
-
-        .message.fade-out {
-            animation: fadeOut 0.3s ease forwards;
-        }
-
-        @keyframes fadeOut {
-            to { opacity: 0; transform: translateX(30px); }
-        }
-
-        /* Progress bar */
-        .progress-bar {
+        #uploadBtn {
+            padding: 15px 30px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            cursor: pointer;
             width: 100%;
-            height: 4px;
-            background: #e0e0e0;
-            border-radius: 2px;
-            margin: 20px 0;
-            overflow: hidden;
-            display: none;
+            margin-top: 10px;
         }
 
-        .progress-bar .progress {
-            height: 100%;
-            background: var(--color-secundario);
-            width: 0%;
-            transition: width 0.3s;
-            animation: progressPulse 1s infinite;
-        }
-
-        @keyframes progressPulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.7; }
-            100% { opacity: 1; }
-        }
-
-        /* Loading overlay */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .loading-spinner {
-            background: white;
-            padding: 30px 50px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .loading-spinner i {
-            font-size: 48px;
-            color: var(--color-secundario);
-            animation: spin 1s linear infinite;
-            margin-bottom: 15px;
+        #uploadBtn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
         }
 
         /* URL result */
         .url-box {
-            background: #f0f9f0;
-            border: 2px solid var(--color-exito);
-            border-radius: 12px;
+            background: #d4edda;
+            border: 2px solid #27ae60;
+            border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
-            animation: slideIn 0.3s ease;
+            text-align: center;
         }
 
         .url-box input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #cbd5e0;
-            border-radius: 8px;
-            margin: 10px 0;
-            font-size: 14px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #27ae60;
+            border-radius: 5px;
+            font-size: 16px;
         }
 
-        /* Lista de artículos */
-        .articulos-list {
-            margin-top: 20px;
+        .url-box button {
+            padding: 15px 30px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* ===== LISTA DE ARTÍCULOS ===== */
+        .articulos-lista {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .articulos-lista h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 22px;
         }
 
         .articulo-item {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border-left: 5px solid #e74c3c;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid var(--color-secundario);
-            transition: all 0.3s;
-            animation: slideIn 0.3s ease;
         }
 
-        .articulo-item:hover {
-            transform: translateX(5px);
-            background: #f1f5f9;
-        }
-
-        .articulo-info h4 {
-            color: var(--color-primario);
-            margin-bottom: 5px;
-        }
-
-        .articulo-info small {
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .articulo-acciones {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn-icon {
-            padding: 8px 12px;
+        .articulo-item button {
+            padding: 8px 15px;
+            margin-left: 10px;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.2s;
         }
 
         .btn-ver {
-            background: var(--color-info);
+            background: #3498db;
             color: white;
         }
 
         .btn-editar {
-            background: var(--color-secundario);
+            background: #f39c12;
             color: white;
         }
 
-        .btn-icon:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
-
-        /* Empty state */
-        .empty-state {
+        /* Mensajes */
+        #messageBox {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
             text-align: center;
-            padding: 60px 20px;
-            color: #94a3b8;
+            font-size: 18px;
         }
 
-        .empty-state i {
-            font-size: 60px;
-            margin-bottom: 15px;
-            color: var(--color-secundario);
-            opacity: 0.5;
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #27ae60;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #e74c3c;
         }
 
         /* Responsive */
-        @media (max-width: 968px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
+        @media (max-width: 768px) {
+            .botones-accion {
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .header {
                 flex-direction: column;
-                gap: 20px;
-                text-align: center;
+                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Contenedor de mensajes flotantes -->
-    <div id="messageContainer" class="message-container"></div>
-
-    <!-- Loading overlay -->
-    <div id="loadingOverlay" class="loading-overlay">
-        <div class="loading-spinner">
-            <i class="fas fa-spinner"></i>
-            <p id="loadingMessage">Procesando...</p>
-        </div>
-    </div>
-
     <div class="container">
         <!-- LOGIN -->
         <div id="loginSection">
             <h2><i class="fas fa-lock"></i> Acceso al Panel</h2>
-            
-            <div class="input-group">
-                <label><i class="fas fa-user"></i> Usuario</label>
-                <input type="text" id="usernameInput" value="admin" placeholder="admin">
-            </div>
-            
-            <div class="input-group">
-                <label><i class="fas fa-key"></i> Contraseña</label>
-                <input type="password" id="passwordInput" placeholder="••••••••">
-            </div>
-            
-            <button class="login-btn" onclick="verificarCredenciales()" id="loginBtn">
-                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
-            </button>
-            
-            <div id="loginError">
-                <i class="fas fa-exclamation-circle"></i> Usuario o contraseña incorrectos
-            </div>
+            <input type="text" id="usernameInput" placeholder="Usuario" value="admin">
+            <input type="password" id="passwordInput" placeholder="Contraseña">
+            <button onclick="verificarCredenciales()">ENTRAR</button>
+            <div id="loginError">Usuario o contraseña incorrectos</div>
         </div>
         
         <!-- PANEL PRINCIPAL -->
         <div id="mainPanel">
             <div class="header">
-                <h2>
-                    <i class="fas fa-pen-fancy"></i>
-                    Panel de Administración
-                </h2>
-                <div class="user-info">
-                    <div class="user-badge">
-                        <i class="fas fa-user-circle"></i>
-                        <span id="usuarioActual">admin</span>
-                    </div>
-                    <button class="logout-btn" onclick="cerrarSesion()">
-                        <i class="fas fa-sign-out-alt"></i> Salir
+                <h2><i class="fas fa-pen-fancy"></i> Administrar Blog</h2>
+                <button onclick="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Salir</button>
+            </div>
+            
+            <!-- BOTONES DE ACCIÓN RÁPIDA -->
+            <div class="botones-accion">
+                <button class="btn-accion dialogo" onclick="insertarDialogo()">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>DIÁLOGO</span>
+                </button>
+                <button class="btn-accion audio" onclick="seleccionarTipoArchivo('audio')">
+                    <i class="fas fa-microphone-alt"></i>
+                    <span>AUDIO</span>
+                </button>
+                <button class="btn-accion video" onclick="seleccionarTipoArchivo('video')">
+                    <i class="fas fa-video"></i>
+                    <span>VIDEO</span>
+                </button>
+                <button class="btn-accion imagen" onclick="seleccionarTipoArchivo('imagen')">
+                    <i class="fas fa-image"></i>
+                    <span>IMAGEN</span>
+                </button>
+            </div>
+            
+            <!-- FORMULARIO -->
+            <div class="form-group">
+                <label>TÍTULO DEL ARTÍCULO</label>
+                <input type="text" id="titulo" placeholder="Escribe el título aquí">
+            </div>
+            
+            <div class="form-group">
+                <label>URL DEL ARTÍCULO (slug)</label>
+                <input type="text" id="slug" placeholder="mi-articulo">
+            </div>
+            
+            <div class="form-group">
+                <label>CONTENIDO</label>
+                <div id="editor"></div>
+            </div>
+            
+            <!-- SUBIR ARCHIVO (se muestra cuando se necesita) -->
+            <div id="uploadSection" style="display: none;">
+                <div class="upload-area">
+                    <input type="file" id="fileInput" onchange="prepararSubida()">
+                    <label for="fileInput" class="upload-label">
+                        <i class="fas fa-folder-open"></i> SELECCIONAR ARCHIVO
+                    </label>
+                    <div id="fileName">Ningún archivo seleccionado</div>
+                    <button id="uploadBtn" onclick="subirArchivo()" disabled>
+                        <i class="fas fa-upload"></i> SUBIR ARCHIVO
                     </button>
                 </div>
+                <div id="uploadResult"></div>
             </div>
             
-            <!-- Barra de progreso -->
-            <div id="progressBar" class="progress-bar">
-                <div class="progress" id="progress"></div>
-            </div>
+            <!-- BOTONES PRINCIPALES -->
+            <button class="btn-publicar" onclick="publicarArticulo()">
+                <i class="fas fa-cloud-upload-alt"></i> PUBLICAR ARTÍCULO
+            </button>
             
-            <div class="grid-2">
-                <!-- Editor -->
-                <div class="card">
-                    <h3>
-                        <i class="fas fa-edit"></i>
-                        Crear Artículo
-                    </h3>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-heading"></i> Título</label>
-                        <input type="text" id="titulo" class="form-control" 
-                               placeholder="Ej: Mi primer artículo">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-link"></i> URL (slug)</label>
-                        <input type="text" id="slug" class="form-control" 
-                               placeholder="mi-primer-articulo">
-                        <small style="color: #64748b;">Solo minúsculas y guiones</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-paragraph"></i> Contenido</label>
-                        <div id="editor"></div>
-                    </div>
-                    
-                    <div class="btn-group">
-                        <button class="btn btn-primary" onclick="publicarArticulo()" id="publicarBtn">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            Publicar
-                        </button>
-                        <button class="btn btn-secondary" onclick="previsualizar()">
-                            <i class="fas fa-eye"></i>
-                            Previsualizar
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Multimedia -->
-                <div class="card">
-                    <h3>
-                        <i class="fas fa-images"></i>
-                        Subir Archivos
-                    </h3>
-                    
-                    <div class="upload-area">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Arrastra o selecciona un archivo</p>
-                        
-                        <input type="file" id="fileInput" accept="image/*,audio/*,video/*" 
-                               style="display: none;" onchange="prepararSubida()">
-                        <label for="fileInput" class="upload-label">
-                            <i class="fas fa-folder-open"></i> Seleccionar archivo
-                        </label>
-                        
-                        <div id="fileName" style="color: #64748b; margin-top: 10px;">
-                            Ningún archivo seleccionado
-                        </div>
-                    </div>
-                    
-                    <button class="btn btn-success" onclick="subirArchivo()" 
-                            id="uploadBtn" style="width: 100%;" disabled>
-                        <i class="fas fa-upload"></i> Subir Archivo
-                    </button>
-                    
-                    <div id="uploadResult"></div>
-                    
-                    <div style="margin-top: 30px;">
-                        <h4 style="color: var(--color-primario); margin-bottom: 15px;">
-                            <i class="fas fa-comments"></i> Diálogos
-                        </h4>
-                        <button class="btn btn-secondary" style="width: 100%;" onclick="insertarDialogo()">
-                            <i class="fas fa-quote-right"></i> Insertar Diálogo
-                        </button>
-                    </div>
+            <button class="btn-previsualizar" onclick="previsualizar()">
+                <i class="fas fa-eye"></i> PREVISUALIZAR
+            </button>
+            
+            <!-- LISTA DE ARTÍCULOS -->
+            <div class="articulos-lista">
+                <h3><i class="fas fa-book-open"></i> Artículos Publicados</h3>
+                <div id="articulosList">
+                    <p style="text-align: center; color: #666;">Cargando artículos...</p>
                 </div>
             </div>
             
-            <!-- Lista de artículos -->
-            <div class="card" style="margin-top: 30px;">
-                <h3>
-                    <i class="fas fa-book-open"></i>
-                    Artículos Publicados
-                </h3>
-                
-                <div id="articulosList" class="articulos-list">
-                    <div class="empty-state">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        <p>Cargando artículos...</p>
-                    </div>
-                </div>
-            </div>
+            <!-- MENSAJES -->
+            <div id="messageBox"></div>
         </div>
     </div>
     
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     
     <script>
-        // ===== CONFIGURACIÓN - EDITA AQUÍ =====
+        // ===== CONFIGURACIÓN =====
         const CONFIG = {
-            githubToken: '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',  // ← PON TU TOKEN REAL
-            githubUser: 'jalilamado99-spec',        // ← TU USUARIO
-            githubRepo: 'brusleguas.github.io',     // ← TU REPOSITORIO
+            githubToken: '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',  // ← PON TU TOKEN
+            githubUser: 'jalilamado99-spec',
+            githubRepo: 'brusleguas.github.io',
             branch: 'main',
             usuarios: {
                 'admin': 'blog2024',
-                'brusleguas': '0824'
+                'brusleguas': '123456'
             }
         };
 
@@ -803,208 +499,98 @@
                     ['bold', 'italic', 'underline'],
                     ['blockquote'],
                     [{ 'header': 1 }, { 'header': 2 }],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    ['link']
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }]
                 ]
             },
-            placeholder: 'Escribe el contenido de tu artículo...'
+            placeholder: 'Escribe aquí el contenido...'
         });
 
         let usuarioActivo = '';
         let archivoSeleccionado = null;
-
-        // ===== FUNCIONES DE MENSAJES =====
-        function mostrarMensaje(texto, tipo) {
-            const container = document.getElementById('messageContainer');
-            const id = 'msg_' + Date.now();
-            
-            const mensaje = document.createElement('div');
-            mensaje.id = id;
-            mensaje.className = `message ${tipo}`;
-            mensaje.innerHTML = `
-                <i class="fas ${tipo === 'success' ? 'fa-check-circle' : tipo === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
-                <span>${texto}</span>
-            `;
-            
-            // Cerrar al hacer click
-            mensaje.onclick = function() {
-                this.classList.add('fade-out');
-                setTimeout(() => this.remove(), 300);
-            };
-            
-            container.appendChild(mensaje);
-            
-            // Auto-cerrar después de 5 segundos
-            setTimeout(() => {
-                const msg = document.getElementById(id);
-                if (msg) {
-                    msg.classList.add('fade-out');
-                    setTimeout(() => msg.remove(), 300);
-                }
-            }, 5000);
-        }
-
-        function mostrarLoading(mostrar, mensaje = 'Procesando...') {
-            const overlay = document.getElementById('loadingOverlay');
-            document.getElementById('loadingMessage').textContent = mensaje;
-            overlay.style.display = mostrar ? 'flex' : 'none';
-        }
-
-        function mostrarProgreso(porcentaje) {
-            const progressBar = document.getElementById('progressBar');
-            const progress = document.getElementById('progress');
-            
-            if (porcentaje === 0) {
-                progressBar.style.display = 'none';
-            } else {
-                progressBar.style.display = 'block';
-                progress.style.width = porcentaje + '%';
-            }
-        }
+        let tipoArchivoActual = '';
 
         // ===== LOGIN =====
-        async function verificarCredenciales() {
+        function verificarCredenciales() {
             const usuario = document.getElementById('usernameInput').value;
             const password = document.getElementById('passwordInput').value;
-            const loginBtn = document.getElementById('loginBtn');
             
             if (CONFIG.usuarios[usuario] && CONFIG.usuarios[usuario] === password) {
                 usuarioActivo = usuario;
-                
-                // Mostrar loading
-                loginBtn.classList.add('loading');
-                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
-                
-                document.getElementById('usuarioActual').textContent = usuario;
-                
-                // Inicializar el panel (esto crea las carpetas)
-                await inicializarPanel();
-                
                 document.getElementById('loginSection').style.display = 'none';
                 document.getElementById('mainPanel').style.display = 'block';
-                document.getElementById('loginError').style.display = 'none';
-                
-                mostrarMensaje(`Bienvenido ${usuario}`, 'success');
-                
+                inicializar();
             } else {
                 document.getElementById('loginError').style.display = 'block';
-                document.getElementById('passwordInput').value = '';
             }
-            
-            loginBtn.classList.remove('loading');
-            loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Iniciar Sesión';
         }
 
         function cerrarSesion() {
             document.getElementById('loginSection').style.display = 'block';
             document.getElementById('mainPanel').style.display = 'none';
-            document.getElementById('usernameInput').value = 'admin';
-            document.getElementById('passwordInput').value = '';
-            mostrarMensaje('Sesión cerrada', 'info');
         }
 
-        // ===== INICIALIZAR - CREA CARPETAS AUTOMÁTICAMENTE =====
-        async function inicializarPanel() {
-            mostrarLoading(true, 'Verificando estructura del repositorio...');
-            mostrarProgreso(30);
-            
-            // Crear carpeta posts
-            await crearCarpeta('posts');
-            mostrarProgreso(60);
-            
-            // Crear carpeta assets
-            await crearCarpeta('assets');
-            mostrarProgreso(80);
-            
-            // Crear archivo lista.json
-            await crearListaArticulos();
-            mostrarProgreso(100);
-            
-            setTimeout(() => {
-                mostrarProgreso(0);
-                mostrarLoading(false);
-            }, 500);
-            
-            // Cargar lista de artículos
+        // ===== INICIALIZAR =====
+        async function inicializar() {
+            mostrarMensaje('Conectando...', 'info');
+            await crearEstructura();
             cargarListaArticulos();
         }
 
-        async function crearCarpeta(nombre) {
-            try {
-                mostrarMensaje(`Creando carpeta /${nombre}...`, 'info');
-                
-                const response = await fetch(`https://api.github.com/repos/${CONFIG.githubUser}/${CONFIG.githubRepo}/contents/${nombre}/.gitkeep`, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${CONFIG.githubToken}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: `Crear carpeta ${nombre}`,
-                        content: btoa(`# Carpeta para archivos del blog - Creada automáticamente`),
-                        branch: CONFIG.branch
-                    })
-                });
-                
-                if (response.ok) {
-                    mostrarMensaje(`Carpeta /${nombre} creada/verificada`, 'success');
-                } else if (response.status === 422) {
-                    // La carpeta ya existe (el archivo ya existe)
-                    mostrarMensaje(`Carpeta /${nombre} ya existe`, 'info');
-                } else {
-                    const error = await response.json();
-                    throw new Error(error.message);
-                }
-            } catch (error) {
-                console.log(`Error con carpeta ${nombre}:`, error);
-                mostrarMensaje(`Carpeta /${nombre} lista`, 'info');
-            }
-        }
-
-        async function crearListaArticulos() {
-            try {
-                // Verificar si existe
-                const response = await fetch(`https://api.github.com/repos/${CONFIG.githubUser}/${CONFIG.githubRepo}/contents/posts/lista.json`, {
-                    headers: {
-                        'Authorization': `token ${CONFIG.githubToken}`
-                    }
-                });
-                
-                if (!response.ok) {
-                    // No existe, crearla
-                    mostrarMensaje('Creando archivo lista.json...', 'info');
-                    
-                    await fetch(`https://api.github.com/repos/${CONFIG.githubUser}/${CONFIG.githubRepo}/contents/posts/lista.json`, {
+        async function crearEstructura() {
+            const carpetas = ['posts', 'assets'];
+            for (const carpeta of carpetas) {
+                try {
+                    await fetch(`https://api.github.com/repos/${CONFIG.githubUser}/${CONFIG.githubRepo}/contents/${carpeta}/.gitkeep`, {
                         method: 'PUT',
                         headers: {
                             'Authorization': `token ${CONFIG.githubToken}`,
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            message: 'Crear lista de artículos',
-                            content: btoa(JSON.stringify([], null, 2)),
+                            message: `Crear carpeta ${carpeta}`,
+                            content: btoa('# Carpeta'),
                             branch: CONFIG.branch
                         })
                     });
-                    
-                    mostrarMensaje('Archivo lista.json creado', 'success');
-                }
-            } catch (error) {
-                console.error('Error con lista.json:', error);
-                mostrarMensaje('Error con lista.json: ' + error.message, 'error');
+                } catch (e) {}
             }
         }
 
-        // ===== SUBIR ARCHIVOS =====
+        // ===== BOTONES DE ACCIÓN =====
+        function seleccionarTipoArchivo(tipo) {
+            tipoArchivoActual = tipo;
+            
+            let accept = '';
+            if (tipo === 'audio') accept = 'audio/*';
+            else if (tipo === 'video') accept = 'video/*';
+            else if (tipo === 'imagen') accept = 'image/*';
+            
+            document.getElementById('fileInput').accept = accept;
+            document.getElementById('uploadSection').style.display = 'block';
+            
+            // Hacer scroll a la sección de subida
+            document.getElementById('uploadSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function insertarDialogo() {
+            const dialogHTML = `
+                <div style="background: #f0f0f0; padding: 15px; border-left: 4px solid #3498db; margin: 15px 0;">
+                    <p><strong style="color: #3498db;">🎤 Personaje:</strong> Texto del diálogo</p>
+                </div>
+            `;
+            const range = quill.getSelection();
+            quill.clipboard.dangerouslyPasteHTML(range ? range.index : 0, dialogHTML);
+            mostrarMensaje('✅ Diálogo insertado', 'success');
+        }
+
+        // ===== SUBIR ARCHIVO =====
         function prepararSubida() {
             const fileInput = document.getElementById('fileInput');
             archivoSeleccionado = fileInput.files[0];
             
             if (archivoSeleccionado) {
-                document.getElementById('fileName').innerHTML = `
-                    <i class="fas fa-check-circle" style="color: var(--color-exito);"></i>
-                    ${archivoSeleccionado.name} (${(archivoSeleccionado.size / 1024).toFixed(1)} KB)
-                `;
+                document.getElementById('fileName').textContent = 
+                    `📄 ${archivoSeleccionado.name}`;
                 document.getElementById('uploadBtn').disabled = false;
             }
         }
@@ -1012,9 +598,7 @@
         async function subirArchivo() {
             if (!archivoSeleccionado) return;
             
-            const uploadBtn = document.getElementById('uploadBtn');
-            uploadBtn.disabled = true;
-            mostrarLoading(true, 'Subiendo archivo...');
+            document.getElementById('uploadBtn').disabled = true;
             
             try {
                 const reader = new FileReader();
@@ -1038,60 +622,58 @@
                         })
                     });
                     
-                    if (!response.ok) {
-                        const error = await response.json();
-                        throw new Error(error.message);
-                    }
+                    if (!response.ok) throw new Error('Error al subir');
                     
                     const urlArchivo = `https://raw.githubusercontent.com/${CONFIG.githubUser}/${CONFIG.githubRepo}/main/${ruta}`;
                     
                     document.getElementById('uploadResult').innerHTML = `
                         <div class="url-box">
-                            <strong><i class="fas fa-check-circle" style="color: var(--color-exito);"></i> Archivo subido</strong>
+                            <strong>✅ ARCHIVO SUBIDO</strong>
                             <input type="text" value="${urlArchivo}" readonly>
-                            <button class="btn btn-success" style="padding: 10px;" onclick="insertarEnEditor('${urlArchivo}')">
-                                <i class="fas fa-plus-circle"></i> Insertar en artículo
+                            <button onclick="insertarEnEditor('${urlArchivo}')">
+                                INSERTAR EN ARTÍCULO
                             </button>
                         </div>
                     `;
                     
-                    mostrarMensaje('✅ Archivo subido con éxito', 'success');
-                    
                     // Reset
                     document.getElementById('fileInput').value = '';
-                    document.getElementById('fileName').innerHTML = 'Ningún archivo seleccionado';
+                    document.getElementById('fileName').textContent = 'Ningún archivo seleccionado';
                     archivoSeleccionado = null;
                     
-                    mostrarLoading(false);
+                    mostrarMensaje('✅ Archivo subido con éxito', 'success');
                 };
                 
                 reader.readAsDataURL(archivoSeleccionado);
                 
             } catch (error) {
-                console.error('Error:', error);
                 mostrarMensaje('❌ Error: ' + error.message, 'error');
-                mostrarLoading(false);
-            } finally {
-                uploadBtn.disabled = false;
             }
         }
 
         function insertarEnEditor(url) {
             const extension = url.split('.').pop().toLowerCase();
             const imagenes = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            const videos = ['mp4', 'webm'];
+            const audios = ['mp3', 'wav'];
             
             let html = '';
             
             if (imagenes.includes(extension)) {
-                html = `<img src="${url}" alt="Imagen" style="max-width: 100%;">`;
+                html = `<img src="${url}" alt="Imagen" style="max-width:100%; margin:10px 0;">`;
+            } else if (videos.includes(extension)) {
+                html = `<video controls style="max-width:100%; margin:10px 0;"><source src="${url}"></video>`;
+            } else if (audios.includes(extension)) {
+                html = `<audio controls style="margin:10px 0;"><source src="${url}"></audio>`;
             } else {
-                html = `<a href="${url}" target="_blank">🔗 Ver archivo</a>`;
+                html = `<a href="${url}" target="_blank">📎 Ver archivo</a>`;
             }
             
             const range = quill.getSelection();
             quill.clipboard.dangerouslyPasteHTML(range ? range.index : 0, html);
             document.getElementById('uploadResult').innerHTML = '';
-            mostrarMensaje('Archivo insertado en el editor', 'success');
+            document.getElementById('uploadSection').style.display = 'none';
+            mostrarMensaje('✅ Archivo insertado', 'success');
         }
 
         // ===== PUBLICAR ARTÍCULO =====
@@ -1105,33 +687,20 @@
                 return;
             }
             
-            // Validar slug
-            if (!/^[a-z0-9-]+$/.test(slug)) {
-                mostrarMensaje('❌ El slug solo puede tener minúsculas, números y guiones', 'error');
-                return;
-            }
-            
-            const publicarBtn = document.getElementById('publicarBtn');
-            publicarBtn.classList.add('loading');
-            publicarBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publicando...';
-            
-            mostrarLoading(true, 'Publicando artículo...');
-            mostrarProgreso(30);
+            mostrarMensaje('Publicando...', 'info');
             
             try {
                 const articulo = {
                     titulo: titulo,
                     fecha: new Date().toISOString(),
                     contenido: contenido,
-                    autor: 'brusleguas'  // Siempre brusleguas
+                    autor: 'brusleguas'
                 };
                 
                 const rutaJSON = `posts/${slug}.json`;
                 const contenidoJSON = JSON.stringify(articulo, null, 2);
                 
-                mostrarProgreso(50);
-                
-                // Verificar si ya existe
+                // Verificar si existe
                 let sha = null;
                 try {
                     const getResponse = await fetch(`https://api.github.com/repos/${CONFIG.githubUser}/${CONFIG.githubRepo}/contents/${rutaJSON}`, {
@@ -1145,9 +714,7 @@
                     }
                 } catch (e) {}
                 
-                mostrarProgreso(70);
-                
-                // Subir artículo
+                // Subir
                 const response = await fetch(`https://api.github.com/repos/${CONFIG.githubUser}/${CONFIG.githubRepo}/contents/${rutaJSON}`, {
                     method: 'PUT',
                     headers: {
@@ -1162,17 +729,9 @@
                     })
                 });
                 
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message);
-                }
+                if (!response.ok) throw new Error('Error al publicar');
                 
-                mostrarProgreso(90);
-                
-                // Actualizar lista
                 await actualizarLista(slug, titulo);
-                
-                mostrarProgreso(100);
                 
                 mostrarMensaje('✅ Artículo publicado con éxito', 'success');
                 
@@ -1181,22 +740,10 @@
                 document.getElementById('slug').value = '';
                 quill.setContents([]);
                 
-                // Recargar lista
                 cargarListaArticulos();
                 
-                setTimeout(() => {
-                    mostrarProgreso(0);
-                    mostrarLoading(false);
-                }, 500);
-                
             } catch (error) {
-                console.error('Error publicando:', error);
                 mostrarMensaje('❌ Error: ' + error.message, 'error');
-                mostrarProgreso(0);
-                mostrarLoading(false);
-            } finally {
-                publicarBtn.classList.remove('loading');
-                publicarBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Publicar';
             }
         }
 
@@ -1206,7 +753,6 @@
             let sha = null;
             
             try {
-                // Obtener lista actual
                 const getResponse = await fetch(`https://api.github.com/repos/${CONFIG.githubUser}/${CONFIG.githubRepo}/contents/${listaPath}`, {
                     headers: {
                         'Authorization': `token ${CONFIG.githubToken}`
@@ -1219,11 +765,8 @@
                     const contenido = atob(data.content);
                     lista = JSON.parse(contenido);
                 }
-            } catch (e) {
-                console.log('Lista no existe, se creará nueva');
-            }
+            } catch (e) {}
             
-            // Añadir o actualizar
             const index = lista.findIndex(a => a.slug === slug);
             const nuevoArticulo = {
                 slug: slug,
@@ -1238,7 +781,6 @@
                 lista.push(nuevoArticulo);
             }
             
-            // Guardar lista
             await fetch(`https://api.github.com/repos/${CONFIG.githubUser}/${CONFIG.githubRepo}/contents/${listaPath}`, {
                 method: 'PUT',
                 headers: {
@@ -1246,7 +788,7 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    message: 'Actualizar lista de artículos',
+                    message: 'Actualizar lista',
                     content: btoa(unescape(encodeURIComponent(JSON.stringify(lista, null, 2)))),
                     branch: CONFIG.branch,
                     sha: sha
@@ -1266,12 +808,7 @@
                 });
                 
                 if (!response.ok) {
-                    listaDiv.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-book-open"></i>
-                            <p>No hay artículos publicados</p>
-                        </div>
-                    `;
+                    listaDiv.innerHTML = '<p style="text-align:center;">No hay artículos</p>';
                     return;
                 }
                 
@@ -1280,42 +817,24 @@
                 const articulos = JSON.parse(contenido);
                 
                 if (articulos.length === 0) {
-                    listaDiv.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-book-open"></i>
-                            <p>No hay artículos publicados</p>
-                        </div>
-                    `;
+                    listaDiv.innerHTML = '<p style="text-align:center;">No hay artículos publicados</p>';
                     return;
                 }
                 
-                // Ordenar por fecha
                 articulos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
                 
                 let html = '';
                 articulos.forEach(art => {
-                    const fecha = new Date(art.fecha).toLocaleDateString('es-ES', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    });
-                    
+                    const fecha = new Date(art.fecha).toLocaleDateString();
                     html += `
                         <div class="articulo-item">
-                            <div class="articulo-info">
-                                <h4>${art.titulo}</h4>
-                                <small>
-                                    <i class="fas fa-calendar-alt"></i> ${fecha}
-                                    <i class="fas fa-user" style="margin-left: 10px;"></i> ${art.autor || 'brusleguas'}
-                                </small>
+                            <div>
+                                <strong>${art.titulo}</strong><br>
+                                <small>${fecha}</small>
                             </div>
-                            <div class="articulo-acciones">
-                                <button class="btn-icon btn-ver" onclick="verArticulo('${art.slug}')">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="btn-icon btn-editar" onclick="editarArticulo('${art.slug}')">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+                            <div>
+                                <button class="btn-ver" onclick="verArticulo('${art.slug}')">👁️ Ver</button>
+                                <button class="btn-editar" onclick="editarArticulo('${art.slug}')">✏️ Editar</button>
                             </div>
                         </div>
                     `;
@@ -1324,13 +843,7 @@
                 listaDiv.innerHTML = html;
                 
             } catch (error) {
-                console.error('Error cargando lista:', error);
-                listaDiv.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <p>Error al cargar artículos</p>
-                    </div>
-                `;
+                listaDiv.innerHTML = '<p style="text-align:center;color:red;">Error al cargar</p>';
             }
         }
 
@@ -1340,8 +853,6 @@
 
         async function editarArticulo(slug) {
             try {
-                mostrarLoading(true, 'Cargando artículo...');
-                
                 const response = await fetch(`https://api.github.com/repos/${CONFIG.githubUser}/${CONFIG.githubRepo}/contents/posts/${slug}.json`, {
                     headers: {
                         'Authorization': `token ${CONFIG.githubToken}`
@@ -1357,31 +868,14 @@
                     document.getElementById('slug').value = slug;
                     quill.root.innerHTML = articulo.contenido;
                     
-                    mostrarMensaje('Artículo cargado para edición', 'success');
-                    
-                    // Scroll al editor
-                    document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
+                    mostrarMensaje('Artículo cargado', 'success');
                 }
-                
-                mostrarLoading(false);
-                
             } catch (error) {
-                mostrarMensaje('Error al cargar artículo', 'error');
-                mostrarLoading(false);
+                mostrarMensaje('Error al cargar', 'error');
             }
         }
 
-        // ===== OTRAS FUNCIONES =====
-        function insertarDialogo() {
-            const dialogHTML = `
-                <div style="background: #f0f0f0; padding: 15px; border-left: 4px solid var(--color-secundario); margin: 15px 0;">
-                    <p><strong style="color: var(--color-primario);">Personaje:</strong> Texto del diálogo</p>
-                </div>
-            `;
-            const range = quill.getSelection();
-            quill.clipboard.dangerouslyPasteHTML(range ? range.index : 0, dialogHTML);
-        }
-
+        // ===== PREVISUALIZAR =====
         function previsualizar() {
             const titulo = document.getElementById('titulo').value;
             const contenido = quill.root.innerHTML;
@@ -1397,8 +891,8 @@
                 <head>
                     <title>${titulo}</title>
                     <style>
-                        body { max-width: 800px; margin: 40px auto; padding: 20px; font-family: Georgia; line-height: 1.8; }
-                        h1 { color: #1e3c4f; }
+                        body { max-width:800px; margin:40px auto; padding:20px; font-family:Georgia; }
+                        h1 { color:#2c3e50; }
                     </style>
                 </head>
                 <body>
@@ -1409,10 +903,17 @@
             `);
         }
 
-        // Enter para login
-        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') verificarCredenciales();
-        });
+        // ===== MENSAJES =====
+        function mostrarMensaje(texto, tipo) {
+            const msgBox = document.getElementById('messageBox');
+            msgBox.textContent = texto;
+            msgBox.className = tipo;
+            msgBox.style.display = 'block';
+            
+            setTimeout(() => {
+                msgBox.style.display = 'none';
+            }, 3000);
+        }
     </script>
 </body>
 </html>
