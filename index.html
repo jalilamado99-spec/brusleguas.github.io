@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Blog Formal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fafafa;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 3px solid #e74c3c;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .admin-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .admin-link:hover {
+            opacity: 1;
+        }
+        
+        .articulo {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .articulo h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+        
+        .articulo h2 a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        .articulo h2 a:hover {
+            color: #e74c3c;
+        }
+        
+        .meta {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .meta span {
+            margin-right: 15px;
+        }
+        
+        .resumen {
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .leer-mas {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 8px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        .leer-mas:hover {
+            background: #c0392b;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 50px;
+            color: #e74c3c;
+            background: #fdf0ed;
+            border-radius: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Mi Blog Formal</h1>
+            <p>Reflexiones, análisis y pensamientos</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div id="blog-content">
+            <div class="loading">Cargando artículos...</div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Mi Blog Formal. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    
+    <a href="admin.html" class="admin-link">⚙️ Administrar</a>
+    
+    <script>
+        // Configuración - CAMBIA ESTO CON TUS DATOS
+        const CONFIG = {
+            owner: 'brusleguas', // Tu usuario de GitHub
+            repo: 'mi-blog',      // Nombre de tu repositorio
+            branch: 'main'        // Rama principal
+        };
+        
+        async function cargarBlog() {
+            const blogContent = document.getElementById('blog-content');
+            
+            try {
+                // Intentar cargar la lista de artículos
+                const listaUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/posts/lista.json`;
+                
+                const response = await fetch(listaUrl);
+                
+                if (!response.ok) {
+                    // Si no hay lista, mostrar mensaje de bienvenida
+                    blogContent.innerHTML = `
+                        <div class="articulo">
+                            <h2>Bienvenido a Mi Blog</h2>
+                            <div class="meta">
+                                <span>📅 ${new Date().toLocaleDateString()}</span>
+                                <span>✍️ brus.leguas</span>
+                            </div>
+                            <div class="resumen">
+                                <p>Este blog está en construcción. Pronto encontrarás aquí artículos interesantes.</p>
+                                <p>Si eres el administrador, haz click en el botón "Administrar" para comenzar a publicar.</p>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const articulos = await response.json();
+                
+                if (articulos.length === 0) {
+                    blogContent.innerHTML = `
+                        <div class="articulo">
+                            <h2>No hay artículos aún</h2>
+                            <div class="resumen">
+                                <p>Próximamente encontrarás contenido interesante aquí.</p>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Ordenar artículos por fecha (más reciente primero)
+                articulos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+                
+                let html = '';
+                
+                for (let articulo of articulos.slice(0, 5)) { // Mostrar últimos 5
+                    // Crear un resumen del contenido (primeros 200 caracteres sin HTML)
+                    const articuloResponse = await fetch(
+                        `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/posts/${articulo.slug}.json`
+                    );
+                    
+                    if (articuloResponse.ok) {
+                        const articuloCompleto = await articuloResponse.json();
+                        const textoPlano = articuloCompleto.contenido.replace(/<[^>]*>/g, '');
+                        const resumen = textoPlano.substring(0, 200) + '...';
+                        
+                        html += `
+                            <article class="articulo">
+                                <h2><a href="post.html?slug=${articulo.slug}">${articulo.titulo}</a></h2>
+                                <div class="meta">
+                                    <span>📅 ${new Date(articulo.fecha).toLocaleDateString()}</span>
+                                    <span>✍️ ${articulo.autor || 'brus.leguas'}</span>
+                                </div>
+                                <div class="resumen">
+                                    <p>${resumen}</p>
+                                </div>
+                                <a href="post.html?slug=${articulo.slug}" class="leer-mas">Leer más →</a>
+                            </article>
+                        `;
+                    }
+                }
+                
+                blogContent.innerHTML = html;
+                
+            } catch (error) {
+                console.error('Error cargando blog:', error);
+                blogContent.innerHTML = `
+                    <div class="error">
+                        <h3>Error al cargar el blog</h3>
+                        <p>No se pudo conectar con GitHub. Verifica tu configuración.</p>
+                        <p style="font-size: 0.9em; margin-top: 10px;">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Cargar el blog cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', cargarBlog);
+    </script>
+</body>
+</html>
