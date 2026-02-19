@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artículo - Mi Blog Formal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+            background: #fafafa;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 40px;
+        }
+        
+        .volver {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .volver:hover {
+            opacity: 1;
+        }
+        
+        .articulo-completo {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .articulo-completo h1 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        .meta {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .meta span {
+            margin-right: 20px;
+        }
+        
+        .contenido {
+            color: #333;
+        }
+        
+        /* Estilos para el contenido del artículo */
+        .contenido h2 {
+            color: #2c3e50;
+            margin: 30px 0 15px;
+            font-size: 1.8em;
+        }
+        
+        .contenido h3 {
+            color: #34495e;
+            margin: 25px 0 10px;
+            font-size: 1.4em;
+        }
+        
+        .contenido p {
+            margin-bottom: 20px;
+        }
+        
+        .contenido img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .contenido blockquote {
+            border-left: 4px solid #e74c3c;
+            padding: 15px 20px;
+            background: #f9f9f9;
+            font-style: italic;
+            margin: 20px 0;
+            color: #555;
+        }
+        
+        .contenido pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+        }
+        
+        .contenido ul, .contenido ol {
+            margin: 20px 0 20px 30px;
+        }
+        
+        .contenido li {
+            margin-bottom: 5px;
+        }
+        
+        .contenido a {
+            color: #e74c3c;
+            text-decoration: none;
+        }
+        
+        .contenido a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Estilo especial para diálogos de personajes */
+        .contenido .dialogo {
+            background: #f0f0f0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-style: italic;
+            border-left: 4px solid #3498db;
+        }
+        
+        .contenido .personaje {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 50px;
+            color: #e74c3c;
+            background: #fdf0ed;
+            border-radius: 8px;
+        }
+        
+        .no-encontrado {
+            text-align: center;
+            padding: 50px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="volver">← Volver al inicio</a>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div id="articulo-content">
+            <div class="loading">Cargando artículo...</div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Mi Blog Formal</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Configuración - CAMBIA ESTO CON TUS DATOS
+        const CONFIG = {
+            owner: 'brusleguas', // Tu usuario de GitHub
+            repo: 'mi-blog',      // Nombre de tu repositorio
+            branch: 'main'        // Rama principal
+        };
+        
+        async function cargarArticulo() {
+            const articuloContent = document.getElementById('articulo-content');
+            
+            // Obtener el slug de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+            
+            if (!slug) {
+                articuloContent.innerHTML = `
+                    <div class="error">
+                        <h3>Artículo no especificado</h3>
+                        <p>No se ha especificado qué artículo cargar.</p>
+                        <a href="index.html" style="color: #e74c3c;">Volver al inicio</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            try {
+                const articuloUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/posts/${slug}.json`;
+                
+                const response = await fetch(articuloUrl);
+                
+                if (!response.ok) {
+                    articuloContent.innerHTML = `
+                        <div class="no-encontrado">
+                            <h2>Artículo no encontrado</h2>
+                            <p>Lo sentimos, el artículo que buscas no existe o ha sido eliminado.</p>
+                            <a href="index.html" class="leer-mas">Volver al inicio</a>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const articulo = await response.json();
+                
+                // Formatear fecha
+                const fecha = new Date(articulo.fecha);
+                const fechaFormateada = fecha.toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                const html = `
+                    <article class="articulo-completo">
+                        <h1>${articulo.titulo}</h1>
+                        <div class="meta">
+                            <span>📅 ${fechaFormateada}</span>
+                            <span>✍️ ${articulo.autor || 'brus.leguas'}</span>
+                        </div>
+                        <div class="contenido">
+                            ${articulo.contenido}
+                        </div>
+                    </article>
+                `;
+                
+                articuloContent.innerHTML = html;
+                document.title = `${articulo.titulo} - Mi Blog Formal`;
+                
+            } catch (error) {
+                console.error('Error cargando artículo:', error);
+                articuloContent.innerHTML = `
+                    <div class="error">
+                        <h3>Error al cargar el artículo</h3>
+                        <p>No se pudo conectar con GitHub. Verifica tu conexión.</p>
+                        <p style="font-size: 0.9em; margin-top: 10px;">${error.message}</p>
+                        <a href="index.html" style="display: inline-block; margin-top: 20px; color: #e74c3c;">Volver al inicio</a>
+                    </div>
+                `;
+            }
+        }
+        
+        // Cargar el artículo cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', cargarArticulo);
+    </script>
+</body>
+</html>
