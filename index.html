@@ -3,41 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brus leguas</title>
+    <title>Blog de Brus Leguas · Reflexiones desde Quilpué</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ===== VARIABLES GLOBALES - CAMBIA AQUÍ LOS COLORES ===== */
-        :root {
-            /* COLORES PRINCIPALES - Cámbialos a tu gusto */
-            --color-primario: #1e3c4f;        /* Azul oscuro principal */
-            --color-secundario: #d98c3b;       /* Naranja/accento */
-            --color-fondo: #f8fafc;            /* Fondo general */
-            --color-texto: #2c4058;             /* Color de texto principal */
-            --color-texto-claro: #5a6f7d;       /* Texto secundario */
-            --color-borde: #e9ecef;              /* Color de bordes */
-            
-            /* TIPOGRAFÍA */
-            --fuente-titulos: 'Playfair Display', Georgia, serif;
-            --fuente-texto: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
-            
-            /* TAMAÑOS */
-            --tamano-titulo-site: 4em;
-            --tamano-titulo-articulo: 2.2em;
-            --tamano-texto: 1.1em;
-            
-            /* ESPACIADO */
-            --espaciado-general: 20px;
-            --borde-radio: 20px;
-            
-            /* SOMBRAS */
-            --sombra-suave: 0 10px 30px rgba(0,0,0,0.05);
-            --sombra-fuerte: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -45,28 +17,27 @@
         }
 
         body {
-            font-family: var(--fuente-texto);
-            background: var(--color-fondo);
-            color: var(--color-texto);
+            font-family: 'Source Sans Pro', sans-serif;
+            background: #f8fafc;
+            color: #2c3e50;
             line-height: 1.8;
         }
 
-        /* ===== HEADER ===== */
+        /* HEADER */
         .site-header {
-            background: linear-gradient(135deg, var(--color-primario) 0%, #2c5a7a 100%);
+            background: linear-gradient(135deg, #1a2f3f 0%, #2c5a7a 100%);
             color: white;
             padding: 100px 20px;
             text-align: center;
             position: relative;
-            border-bottom: 5px solid var(--color-secundario);
-            box-shadow: var(--sombra-fuerte);
+            border-bottom: 5px solid #d98c3b;
         }
 
         .site-header h1 {
-            font-size: var(--tamano-titulo-site);
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
             font-weight: 500;
             margin-bottom: 15px;
-            font-family: var(--fuente-titulos);
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
@@ -80,172 +51,255 @@
             padding-top: 20px;
         }
 
-        /* ===== CONTENEDOR PRINCIPAL ===== */
+        /* CONTENEDOR */
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
-        /* ===== BARRA DE HERRAMIENTAS ===== */
+        /* BARRA DE HERRAMIENTAS */
         .toolbar {
             background: white;
             border-radius: 50px;
             padding: 15px 30px;
             margin-bottom: 40px;
-            box-shadow: var(--sombra-suave);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-            border: 1px solid var(--color-borde);
         }
 
         .blog-title {
             font-size: 1.2em;
-            color: var(--color-texto);
+            color: #2c3e50;
             font-weight: 600;
-            letter-spacing: 1px;
         }
 
         .blog-title i {
-            color: var(--color-secundario);
+            color: #d98c3b;
             margin-right: 10px;
         }
 
         .admin-link {
-            background: linear-gradient(135deg, var(--color-primario) 0%, #2c5a7a 100%);
+            background: #2c3e50;
             color: white;
             padding: 12px 30px;
             border-radius: 30px;
             text-decoration: none;
-            font-size: 1em;
-            transition: all 0.3s;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 10px;
+            transition: all 0.3s;
         }
 
         .admin-link:hover {
+            background: #d98c3b;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            background: var(--color-secundario);
         }
 
-        /* ===== LISTA DE ARTÍCULOS ===== */
-        .articles {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        /* Tarjeta de artículo */
-        .article-card {
+        /* SECCIÓN BIOGRÁFICA */
+        .bio-section {
             background: white;
-            border-radius: var(--borde-radio);
-            padding: 35px;
-            box-shadow: var(--sombra-suave);
-            transition: all 0.3s;
-            border: 1px solid var(--color-borde);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
             position: relative;
+            overflow: hidden;
         }
 
-        .article-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--sombra-fuerte);
-            border-color: var(--color-secundario);
-        }
-
-        .article-card::before {
+        .bio-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 4px;
             height: 100%;
-            background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-secundario) 100%);
-            border-radius: var(--borde-radio) 0 0 var(--borde-radio);
+            background: linear-gradient(135deg, #d98c3b, #2c3e50);
         }
 
-        /* Metadatos */
-        .article-meta {
+        .bio-header {
             display: flex;
             align-items: center;
             gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .bio-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #d98c3b, #2c3e50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 10px 20px rgba(217, 140, 59, 0.2);
+        }
+
+        .bio-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            color: #2c3e50;
+        }
+
+        .bio-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .bio-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 3px solid #d98c3b;
+        }
+
+        .bio-card h3 {
+            color: #2c3e50;
             margin-bottom: 15px;
-            color: var(--color-texto-claro);
-            font-size: 0.95em;
-            flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3em;
+        }
+
+        .bio-card h3 i {
+            color: #d98c3b;
+        }
+
+        .bio-card p {
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+
+        .bio-quote {
+            grid-column: span 2;
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            font-style: italic;
+            font-size: 1.2em;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .bio-quote i {
+            color: #d98c3b;
+            margin: 0 10px;
+        }
+
+        /* SECCIÓN DEL BLOG */
+        .blog-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .blog-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .blog-section h2 i {
+            color: #d98c3b;
+        }
+
+        /* ARTÍCULOS */
+        .articles {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .article-card {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            border-left: 4px solid #d98c3b;
+            transition: all 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 20px;
+            color: #718096;
+            font-size: 0.9em;
+            margin-bottom: 15px;
         }
 
         .article-meta span {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
         }
 
         .article-meta i {
-            color: var(--color-secundario);
+            color: #d98c3b;
         }
 
-        /* Título */
         .article-title {
-            font-size: var(--tamano-titulo-articulo);
+            font-size: 1.8em;
             margin-bottom: 15px;
-            line-height: 1.4;
-            font-family: var(--fuente-titulos);
+            font-family: 'Playfair Display', serif;
         }
 
         .article-title a {
-            color: var(--color-primario);
+            color: #2c3e50;
             text-decoration: none;
-            transition: color 0.3s;
         }
 
         .article-title a:hover {
-            color: var(--color-secundario);
+            color: #d98c3b;
         }
 
-        /* Extracto */
         .article-excerpt {
-            color: var(--color-texto-claro);
+            color: #4a5568;
             margin-bottom: 20px;
-            font-size: var(--tamano-texto);
-            line-height: 1.8;
         }
 
-        /* Botón leer más */
         .read-more {
+            color: #d98c3b;
+            text-decoration: none;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            color: var(--color-secundario);
-            text-decoration: none;
-            font-weight: 600;
-            transition: gap 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9em;
         }
 
         .read-more:hover {
             gap: 15px;
         }
 
-        /* ===== ESTADOS ===== */
+        /* ESTADOS */
         .loading, .empty-state {
             text-align: center;
-            padding: 80px 20px;
-            background: white;
-            border-radius: var(--borde-radio);
-            box-shadow: var(--sombra-suave);
+            padding: 60px;
+            color: #718096;
         }
 
         .loading i {
             font-size: 3em;
-            color: var(--color-secundario);
-            margin-bottom: 15px;
+            color: #d98c3b;
             animation: spin 1s linear infinite;
         }
 
@@ -254,32 +308,12 @@
             to { transform: rotate(360deg); }
         }
 
-        .empty-state i {
-            font-size: 5em;
-            color: var(--color-secundario);
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-
-        .empty-state h2 {
-            font-size: 2em;
-            color: var(--color-primario);
-            margin-bottom: 15px;
-        }
-
-        .empty-state p {
-            color: var(--color-texto-claro);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        /* ===== FOOTER ===== */
+        /* FOOTER */
         .site-footer {
-            margin-top: 60px;
-            padding: 40px 20px;
             text-align: center;
-            border-top: 1px solid var(--color-borde);
-            color: var(--color-texto-claro);
+            padding: 40px 20px;
+            border-top: 1px solid #e9ecef;
+            color: #718096;
         }
 
         .footer-links {
@@ -290,149 +324,175 @@
         }
 
         .footer-links a {
-            color: var(--color-texto-claro);
+            color: #718096;
             text-decoration: none;
-            transition: color 0.3s;
         }
 
         .footer-links a:hover {
-            color: var(--color-secundario);
+            color: #d98c3b;
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            :root {
-                --tamano-titulo-site: 2.5em;
-                --tamano-titulo-articulo: 1.8em;
+            .site-header h1 {
+                font-size: 2.5em;
             }
-            
+
+            .bio-content {
+                grid-template-columns: 1fr;
+            }
+
+            .bio-quote {
+                grid-column: span 1;
+            }
+
             .toolbar {
                 flex-direction: column;
                 text-align: center;
-                border-radius: 20px;
             }
-            
-            .article-card {
-                padding: 25px;
+
+            .bio-header {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
     <header class="site-header">
-        <h1>Brus leguas</h1>
-        <p>blog de brusleguas
+        <h1>Brus Leguas · Quilpué</h1>
+        <p>Reflexiones, historias y pensamientos desde el corazón de Quilpué</p>
     </header>
 
     <div class="container">
+        <!-- BARRA DE HERRAMIENTAS -->
         <div class="toolbar">
             <div class="blog-title">
-                <i class="fas fa-pen-fancy"></i> 
-                Publicaciones recientes
+                <i class="fas fa-feather-alt"></i>
+                Blog personal
             </div>
             <a href="admin.html" class="admin-link">
                 <i class="fas fa-lock"></i>
-                Panel de Administración
+                Panel de administración
             </a>
         </div>
 
-        <div id="articlesList" class="articles">
-            <div class="loading">
-                <i class="fas fa-spinner"></i>
-                <p>Cargando publicaciones...</p>
+        <!-- SECCIÓN BIOGRÁFICA -->
+        <div class="bio-section">
+            <div class="bio-header">
+                <div class="bio-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2>¿Qué es este blog?</h2>
+            </div>
+
+            <div class="bio-content">
+                <div class="bio-card">
+                    <h3><i class="fas fa-user"></i> ¿Quién es Brus Leguas?</h3>
+                    <p>Brus Leguas es un pensador, escritor y observador de la vida cotidiana desde la ciudad de <strong>Quilpué</strong>, en la Región de Valparaíso, Chile.</p>
+                    <p>Su mirada única y su forma de narrar las experiencias diarias lo han convertido en una voz reconocida en el ámbito local, combinando la sabiduría popular con reflexiones profundas sobre la existencia.</p>
+                </div>
+
+                <div class="bio-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Quilpué</h3>
+                    <p>Quilpué, conocida como la "Ciudad del Sol", es el escenario de estas reflexiones. Desde sus cerros con vista al valle hasta sus calles llenas de historias, cada rincón de esta ciudad inspira las palabras de Brus.</p>
+                    <p><i class="fas fa-sun" style="color: #d98c3b;"></i> Clima privilegiado · Gente acogedora · Historias infinitas</p>
+                </div>
+
+                <div class="bio-quote">
+                    <i class="fas fa-quote-left"></i>
+                    "Quilpué no es solo un lugar en el mapa, es un estado del alma. Cada cerro, cada calle, cada atardecer cuenta una historia que merece ser contada."
+                    <i class="fas fa-quote-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DEL BLOG -->
+        <div class="blog-section">
+            <h2>
+                <i class="fas fa-book-open"></i>
+                Últimas publicaciones
+            </h2>
+
+            <div id="articlesList" class="articles">
+                <div class="loading">
+                    <i class="fas fa-spinner"></i>
+                    <p>Cargando artículos...</p>
+                </div>
             </div>
         </div>
     </div>
 
     <footer class="site-footer">
-        <p>brus leguas</p>
-        <p style="font-size: 0.9em;">© 2025 · Todos los derechos reservados</p>
+        <p>© 2025 · Brus Leguas · Quilpué, Chile</p>
         <div class="footer-links">
-            <a href="#"><i class="fas fa-rss"></i> RSS</a>
+            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
             <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
             <a href="#"><i class="fas fa-envelope"></i> Contacto</a>
         </div>
     </footer>
 
     <script>
-        // ===== CONFIGURACIÓN - EDITA AQUÍ TUS DATOS =====
+        // CONFIGURACIÓN
         const BLOG_CONFIG = {
-            user: 'jalilamado99-spec',        // TU USUARIO DE GITHUB
-            repo: 'brusleguas.github.io',     // TU REPOSITORIO
-            branch: 'main'                     // RAMA (casi siempre main)
+            user: 'jalilamado99-spec',
+            repo: 'brusleguas.github.io',
+            branch: 'main'
         };
 
-        // URL base para archivos
         const BASE_URL = `https://raw.githubusercontent.com/${BLOG_CONFIG.user}/${BLOG_CONFIG.repo}/${BLOG_CONFIG.branch}`;
 
-        // ===== FUNCIÓN PRINCIPAL PARA CARGAR ARTÍCULOS =====
+        // CARGAR ARTÍCULOS
         async function cargarArticulos() {
             const articlesList = document.getElementById('articlesList');
             
             try {
-                console.log('Intentando cargar artículos desde:', `${BASE_URL}/posts/lista.json`);
-                
-                // 1. Intentar cargar la lista de artículos
                 const response = await fetch(`${BASE_URL}/posts/lista.json`);
                 
                 if (!response.ok) {
-                    console.log('No se encontró lista.json, mostrando mensaje de bienvenida');
                     articlesList.innerHTML = `
                         <div class="empty-state">
                             <i class="fas fa-feather-alt"></i>
-                            <h2>Bienvenido a brus leguas</h2>
-                            <p>Este espacio está en construcción. Accede al panel de administración para comenzar a publicar.</p>
-                            <p style="margin-top: 20px; color: var(--color-secundario);">
-                                <i class="fas fa-arrow-right"></i> 
-                                <a href="admin.html" style="color: var(--color-secundario);">Ir al panel</a>
-                            </p>
+                            <p>Próximamente encontrarás las reflexiones de Brus Leguas aquí.</p>
                         </div>
                     `;
                     return;
                 }
 
-                // 2. Parsear la lista de artículos
                 const articulos = await response.json();
-                console.log('Artículos encontrados:', articulos);
                 
                 if (!articulos || articulos.length === 0) {
                     articlesList.innerHTML = `
                         <div class="empty-state">
                             <i class="fas fa-book-open"></i>
-                            <h2>No hay publicaciones aún</h2>
-                            <p>Próximamente encontrarás contenido interesante aquí.</p>
+                            <p>No hay publicaciones aún. Vuelve pronto.</p>
                         </div>
                     `;
                     return;
                 }
 
-                // 3. Ordenar por fecha (más reciente primero)
                 articulos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
-                // 4. Construir el HTML de los artículos
                 let html = '';
                 
-                for (let i = 0; i < articulos.length; i++) {
+                for (let i = 0; i < Math.min(articulos.length, 5); i++) {
                     const art = articulos[i];
                     
                     try {
-                        // Cargar cada artículo individual
                         const artResponse = await fetch(`${BASE_URL}/posts/${art.slug}.json`);
                         
                         if (artResponse.ok) {
                             const articuloCompleto = await artResponse.json();
                             
-                            // Crear resumen (primeros 250 caracteres sin HTML)
                             const textoPlano = articuloCompleto.contenido
                                 .replace(/<[^>]*>/g, ' ')
                                 .replace(/\s+/g, ' ')
                                 .trim();
                             
-                            const resumen = textoPlano.length > 250 
-                                ? textoPlano.substring(0, 250) + '...'
+                            const resumen = textoPlano.length > 200 
+                                ? textoPlano.substring(0, 200) + '...'
                                 : textoPlano;
                             
-                            // Formatear fecha
                             const fecha = new Date(art.fecha);
                             const fechaFormateada = fecha.toLocaleDateString('es-ES', {
                                 year: 'numeric',
@@ -440,75 +500,49 @@
                                 day: 'numeric'
                             });
 
-                            // Calcular tiempo de lectura (aprox)
-                            const palabras = textoPlano.split(' ').length;
-                            const minutosLectura = Math.max(1, Math.ceil(palabras / 200));
-
                             html += `
                                 <article class="article-card">
                                     <div class="article-meta">
-                                        <span>
-                                            <i class="fas fa-calendar-alt"></i>
-                                            ${fechaFormateada}
-                                        </span>
-                                        <span>
-                                            <i class="fas fa-user"></i>
-                                            ${articuloCompleto.autor || 'Editorial'}
-                                        </span>
-                                        <span>
-                                            <i class="fas fa-clock"></i>
-                                            ${minutosLectura} min lectura
-                                        </span>
+                                        <span><i class="fas fa-calendar-alt"></i> ${fechaFormateada}</span>
+                                        <span><i class="fas fa-user"></i> Brus Leguas</span>
                                     </div>
-                                    <h2 class="article-title">
-                                        <a href="post.html?slug=${art.slug}">
-                                            ${articuloCompleto.titulo}
-                                        </a>
-                                    </h2>
-                                    <div class="article-excerpt">
-                                        ${resumen}
-                                    </div>
+                                    <h3 class="article-title">
+                                        <a href="post.html?slug=${art.slug}">${articuloCompleto.titulo}</a>
+                                    </h3>
+                                    <div class="article-excerpt">${resumen}</div>
                                     <a href="post.html?slug=${art.slug}" class="read-more">
-                                        LEER ARTÍCULO COMPLETO 
-                                        <i class="fas fa-arrow-right"></i>
+                                        Leer reflexión completa <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </article>
                             `;
                         }
                     } catch (e) {
-                        console.warn(`Error cargando artículo ${art.slug}:`, e);
+                        console.warn('Error cargando artículo:', e);
                     }
                 }
 
-                // 5. Mostrar los artículos o mensaje de error
                 if (html) {
                     articlesList.innerHTML = html;
                 } else {
                     articlesList.innerHTML = `
                         <div class="empty-state">
                             <i class="fas fa-exclamation-circle"></i>
-                            <h2>Error al cargar</h2>
-                            <p>No se pudieron cargar los artículos. Intenta más tarde.</p>
+                            <p>No se pudieron cargar los artículos.</p>
                         </div>
                     `;
                 }
 
             } catch (error) {
-                console.error('Error general:', error);
+                console.error('Error:', error);
                 articlesList.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-exclamation-triangle"></i>
-                        <h2>Error de conexión</h2>
-                        <p>No se pudo conectar con GitHub. Verifica tu conexión.</p>
-                        <p style="margin-top: 15px; font-size: 0.9em;">
-                            Repositorio: ${BLOG_CONFIG.user}/${BLOG_CONFIG.repo}
-                        </p>
+                        <p>Error al conectar con el blog.</p>
                     </div>
                 `;
             }
         }
 
-        // ===== INICIAR CARGA =====
         document.addEventListener('DOMContentLoaded', cargarArticulos);
     </script>
 </body>
